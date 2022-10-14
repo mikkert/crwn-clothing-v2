@@ -18,6 +18,8 @@ const SignInForm = () => {
 
    const { setCurrentUser } = useContext(UserContext)
 
+   const resetFormFields = () => setFormFields(defaultFormFields)
+
    const signInWithGoogle = async () => {
       const { user } = await signInWithGooglePopup()
       await createUserDocumentFromAuth(user)
@@ -37,7 +39,8 @@ const SignInForm = () => {
             email,
             password,
          )
-         // setCurrentUser(user)
+         setCurrentUser(user)
+         resetFormFields()
       } catch (err) {
          switch (err.code) {
             case 'auth/invalid-email':
